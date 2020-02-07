@@ -1,8 +1,4 @@
-*.stl
-*.gcode
-*.3mf
-*.csg
-*.sl1
 *.json
 polyround.scad
 geometry_bracelet_ring_1_singlefile.scad
+/Tests
