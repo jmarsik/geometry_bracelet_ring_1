@@ -13,6 +13,10 @@ arc_sector = 300;
 // Offset of start angle (sometimes it's good to tweak this) [degrees]
 offset_angle = 25;
 
+/* [Scaling] */
+// Scaling factor [percent]
+scaling_factor_percent = 100.0; // [0.1:0.1:250.0]
+
 /* [Geometry styling] */
 // Number of segments in full circle
 segments = 8;
@@ -61,6 +65,7 @@ assert(inner_dia > 10 && inner_dia < 250, "Inner diameter out of range");
 assert(thickness > 0 && thickness < inner_dia / 4, "Thickness out of range");
 assert(width > 0 && width < 500, "Width out of range");
 assert(arc_sector > 45 && arc_sector <= 360, "Arc sector out of range");
+assert(scaling_factor_percent > 0 && scaling_factor_percent < 999, "Scaling factor out of range");
 assert(segments > 0 && segments < 128, "Number of segments out of range");
 assert(direction_changes >= 0 && direction_changes < 128, "Number of twist direction changes out of range");
 assert(twist > -360 && twist < 360, "Twist out of range");
@@ -69,7 +74,9 @@ assert(cut_degrees >= 0 && cut_degrees < 12, "Cut degrees out of range");
 
 // =========================================
 
-// https://github.com/Irev-Dev/Round-Anything
+// uses library polyround.scad from https://github.com/Irev-Dev/Round-Anything with GPL 3.0 license
+// in files for Thingiverse and PrusaPrinters web sites the library source code would be included DIRECTLY here because
+//  of the limitations of Customizer engine on the web
 use <polyround.scad>;
 
 function len3(v) = len(v) > 1 ? sqrt(addl([for(i = [0 : len(v) - 1]) pow(v[i], 2)])) : len(v) == 1 ? v[0] : v; 
@@ -132,10 +139,11 @@ module cutting_tool_rotated(angle, extend_x_by, top_factor, bottom_factor) {
     cutting_tool(extend_x_by, top_factor, bottom_factor);
 }
 
-difference() {
-    raw_bracelet();
-    
-    if (cut_degrees > 0) { color("green") cutting_tool_rotated(start_angle + cut_degrees, -cutting_tool_extend_x_by, start_cutting_tool_top_factor, start_cutting_tool_bottom_factor); } else {}
-    
-    if (cut_degrees > 0) { color("red") cutting_tool_rotated(end_angle - cut_degrees, +cutting_tool_extend_x_by, end_cutting_tool_top_factor, end_cutting_tool_bottom_factor); } else {}
-}
+scale(scaling_factor_percent / 100)
+    difference() {
+        raw_bracelet();
+        
+        if (cut_degrees > 0) { color("green") cutting_tool_rotated(start_angle + cut_degrees, -cutting_tool_extend_x_by, start_cutting_tool_top_factor, start_cutting_tool_bottom_factor); } else {}
+        
+        if (cut_degrees > 0) { color("red") cutting_tool_rotated(end_angle - cut_degrees, +cutting_tool_extend_x_by, end_cutting_tool_top_factor, end_cutting_tool_bottom_factor); } else {}
+    }
