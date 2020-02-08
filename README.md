@@ -6,7 +6,7 @@ OpenSCAD project that creates various customizable bracelet or ring models. You 
 
 There are also ready-made STL files for two bracelets and one ring, both with 8 segments, 3 directional changes and 20 degrees of twist for each directional change.
 
-Check it out on [Thingiverse](https://www.thingiverse.com/thing:4150252) with [online customizer](https://www.thingiverse.com/apps/customizer/run?thing_id=4150252)!
+Check it out on [Thingiverse](https://www.thingiverse.com/thing:4150252) with [online customizer](https://www.thingiverse.com/apps/customizer/run?thing_id=4150252) and on [PrusaPrinters](https://www.prusaprinters.org/prints/20858-geometry-bracelet-ring)!
 
 ## Print settings
 

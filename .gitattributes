@@ -1,0 +1,5 @@
+* text=auto
+
+*.gcode text eol=lf
+*.stl text eol=crlf
+*.scad text eol=crlf
